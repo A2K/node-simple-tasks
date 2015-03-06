@@ -1,0 +1,13 @@
+{
+  "name": "simple-tasks",
+  "version": "1.0.0",
+  "description": "Easy way to dispatch your functions to a separate process making them truly async",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "coffee -c index.coffee",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roman Bovsunivskyi <a2k0001@gmail.com>",
+  "license": "ISC"
+}
+

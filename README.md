@@ -13,9 +13,9 @@ Each require('simple-stasks') call created a new worker thread and returns a tas
 
 *class*  **Queue**
 
-&nbsp;&nbsp;&nbsp;&nbsp;*method*  **push**( `function`, `arg1`, `arg2`, ...)
+&nbsp;&nbsp;&nbsp;&nbsp;*method*  **push**( `function`, `arg1`, `arg2`, ..., `callback`)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schedules `function` to be called with `arg1`, `arg2`, ... arguments in worker process context.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schedules `function` to be called with `arg1`, `arg2`, ... arguments in worker process context. The `callback` function will be called when task is finished. `callback` can be null.
   
   
 ### Example
@@ -24,7 +24,7 @@ var tasks = require('simple-tasks');
 
 tasks.push(function() {
   console.log("This will be executed by a separate process!");
-});
+}, null);
 ```
 If the function which will run in worker process calls any other user functions, they may be passed to it as arguments. The only limitation is that all arguments must be self-contained.
 ```javascript
@@ -38,5 +38,7 @@ function doStuff(printArgument) {
   printArgument('example');
 }
 
-tasks.push(doStuff, printArgument);
+tasks.push(doStuff, printArgument, function() {
+  console.log('task finished');
+});
 ```

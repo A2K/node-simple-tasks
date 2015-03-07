@@ -9,13 +9,13 @@ Functions scheduled to the queue will run in the worker process context which is
 `npm install simple-tasks`
 
 ### Usage
-Each require('simple-stasks') call created a new worker thread and returns a task queue object for it:
+Each `require('simple-stasks')` call created a new worker thread and returns a task queue object for it:
 
 *class*  **Queue**
 
 &nbsp;&nbsp;&nbsp;&nbsp;*method*  **push**( `function`, `arg1`, `arg2`, ..., `callback`)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schedules `function` to be called with `arg1`, `arg2`, ... arguments in worker process context. The `callback` function will be called when task is finished. `callback` can be null.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schedules `function` to be called with `arg1`, `arg2`, ... arguments in worker process context. The `callback` function will be called when task is finished, it is a required argument (last argument of **push()** is always interpreted as callback), but you can pass `null` explicitly instead of it (see first example).
   
   
 ### Example

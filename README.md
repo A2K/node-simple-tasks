@@ -13,12 +13,15 @@ Each `require('simple-stasks')` call created a new worker thread and returns a t
 
 *class*  **Queue**
 
-&nbsp;&nbsp;&nbsp;&nbsp;*method*  **push**( `function`, `arg1`, `arg2`, ..., `callback`)
+&nbsp;&nbsp;&nbsp;&nbsp;*method*&nbsp;&nbsp;**push**( `function`, `arg1`, `arg2`, ..., `callback`)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schedules `function` to be called with `arg1`, `arg2`, ... arguments in worker process context. The `callback` function will be called when task is finished, it is a required argument (last argument of **push()** is always interpreted as callback), but you can pass `null` explicitly instead of it (see first example).
+Schedules `function` to be called with `arg1`, `arg2`, ..., `resultCallback` arguments under worker process context. The `callback` function will be called when task is finished, it is a required argument (last argument of **push()** is always interpreted as callback), but you can pass `null` explicitly instead of it (see first example). The `resultCallback` argument which is always passed to `function` can be used to return data back to main thread: simply pass the data as the first argument and it will be delivered as `callback` first argument.
+
+&nbsp;&nbsp;&nbsp;&nbsp;*method*&nbsp;&nbsp;**stop**()
+
+Cancels all pending tasks and stops worker process.
   
-  
-### Example
+### Examples
 ```javascript
 var tasks = require('simple-tasks');
 
@@ -40,5 +43,17 @@ function doStuff(printArgument) {
 
 tasks.push(doStuff, printArgument, function() {
   console.log('task finished');
+});
+```
+You can use worker function callback argument for passing data back from the worker process to main. Apart from user provided arguments, the worker process will always pass result callback function to the worker thread. The callback takes one argument which will be passed back to main thread. 
+```javascript
+var tasks = require('simple-tasks');
+
+function approximatePi(callback) {
+  callback(3.1416);
+}
+
+tasks.push(approximatePi, function(pi) {
+  console.log('The approximate value of Pi is: ' + pi);
 });
 ```

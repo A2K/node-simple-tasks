@@ -1,6 +1,6 @@
 {
   "name": "simple-tasks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Easy way to dispatch your functions to a separate process making them truly async",
   "repository": {
     "type": "git",

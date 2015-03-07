@@ -28,9 +28,9 @@ else
         return
 
       if result.status == 'success'
-        @tasks[0].callback null, result.result
+        @tasks[0].callback?(null, result.result)
       else
-        @tasks[0].callback result.error, null
+        @tasks[0].callback?(result.error, null)
 
       @tasks.shift()
       @runTask()

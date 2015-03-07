@@ -39,6 +39,7 @@
       }
 
       Queue.prototype.handleWorkerMessage = function(result) {
+        var _base, _base1;
         if (result.status === 'stopped') {
           return typeof this.stopCallback === "function" ? this.stopCallback() : void 0;
         }
@@ -46,9 +47,13 @@
           return;
         }
         if (result.status === 'success') {
-          this.tasks[0].callback(null, result.result);
+          if (typeof (_base = this.tasks[0]).callback === "function") {
+            _base.callback(null, result.result);
+          }
         } else {
-          this.tasks[0].callback(result.error, null);
+          if (typeof (_base1 = this.tasks[0]).callback === "function") {
+            _base1.callback(result.error, null);
+          }
         }
         this.tasks.shift();
         return this.runTask();

@@ -21,7 +21,7 @@ Schedules `function` to be called with `arg1`, `arg2`, ..., `resultCallback` arg
 
 Cancels all pending tasks and stops worker process.
   
-### Example
+### Examples
 ```javascript
 var tasks = require('simple-tasks');
 

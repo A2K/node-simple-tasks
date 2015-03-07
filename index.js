@@ -7,6 +7,12 @@
   if (process.argv[2] === 'worker') {
     process.on('message', function(task) {
       var args, e, func;
+      if (task === 'stop') {
+        process.send({
+          status: stopped
+        });
+        process.exit();
+      }
       try {
         func = eval('(' + task.task + ')');
         args = eval('(' + task.args + ')');

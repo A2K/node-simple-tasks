@@ -2,6 +2,9 @@
 if process.argv[2] == 'worker'
 
   process.on 'message', (task) ->
+    if task == 'stop'
+      process.send status: stopped
+      process.exit()
     try
       func = eval('(' + task.task + ')')
       args = eval('(' + task.args + ')')
